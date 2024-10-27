@@ -1,4 +1,3 @@
-// src/Pages/LandingPage.jsx
 import React, {useEffect} from "react";
 import Navbar from "./components/NavBar";
 import Features from "./components/Features";
@@ -13,7 +12,7 @@ export function LandingPage() {
       const handleSmoothScroll = (event) => {
         const href = event.target.getAttribute('href');
         
-        // Solo aplicar smooth scroll a enlaces internos (que empiezan con #)
+        // Aca aplico el smooth scroll con enlaces que empiecen con "#"
         if (href && href.startsWith('#')) {
           const targetElement = document.querySelector(href);
     
@@ -27,7 +26,7 @@ export function LandingPage() {
         }
       };
     
-      // Seleccionar solo los enlaces internos
+
       const links = document.querySelectorAll('.navbar-links a[href^="#"], .footer a[href^="#"]');
       links.forEach(link => {
         link.addEventListener('click', handleSmoothScroll);

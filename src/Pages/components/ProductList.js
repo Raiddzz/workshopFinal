@@ -1,4 +1,3 @@
-// src/Pages/components/ProductList.js
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

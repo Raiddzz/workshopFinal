@@ -1,4 +1,3 @@
-// src/Pages/components/Hero.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
