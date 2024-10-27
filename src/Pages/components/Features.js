@@ -3,7 +3,7 @@ import React from 'react';
 function Features() {
   return (
     <section id="features" className="features">
-      <h2>Why Shop With Us?</h2>
+      <h2>¿Por que comprar con nosotros?</h2>
       <div className="feature-cards">
         <div className="feature-card">
           <h3>Delivery mas rapido del pais.</h3>

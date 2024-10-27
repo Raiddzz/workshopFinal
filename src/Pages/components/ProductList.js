@@ -1,16 +1,24 @@
+// src/Pages/components/ProductList.js
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { addToFavorites, removeFromFavorites } from '../redux/favoritesSlice';
+import { useAuth } from '../../context/AuthContext'; // Mantener para verificar autenticación
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites.items);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios("https://junin-eccomerce-api.onrender.com/api/products");
-        const data = response.data.products; 
+        const data = response.data.products;
         setProducts(data);
         setLoading(false);
       } catch (err) {
@@ -22,13 +30,20 @@ const ProductsPage = () => {
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <div>Loading products...</div>;
-  }
+  const isInFavorites = (productId) => {
+    return favorites.some(item => item.id === productId);
+  };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const handleFavoriteClick = (product) => {
+    if (isInFavorites(product.id)) {
+      dispatch(removeFromFavorites(product.id));
+    } else {
+      dispatch(addToFavorites(product));
+    }
+  };
+
+  if (loading) return <div>Loading products...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
@@ -38,7 +53,6 @@ const ProductsPage = () => {
           products.map((product) => (
             <div key={product.id} className="product-item">
               <h2>{product.title}</h2>
-
               {product.thumbnail ? (
                 <img
                   src={product.thumbnail}
@@ -48,8 +62,13 @@ const ProductsPage = () => {
               ) : (
                 <p>No image available</p>
               )}
-
               <p>Price: ${product.price}</p>
+              <button 
+                onClick={() => handleFavoriteClick(product)}
+                className={`favorite-button ${isInFavorites(product.id) ? 'active' : ''}`}
+              >
+                {isInFavorites(product.id) ? '❤️ Quitar de favoritos' : '🤍 Agregar a favoritos'}
+              </button>
             </div>
           ))
         ) : (

@@ -1,3 +1,4 @@
+// src/Pages/LandingPage.jsx
 import React, {useEffect} from "react";
 import Navbar from "./components/NavBar";
 import Features from "./components/Features";
@@ -10,30 +11,35 @@ import './styles/Products.css'
 export function LandingPage() {
     useEffect(() => {
       const handleSmoothScroll = (event) => {
-        const targetId = event.target.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-  
-        if (targetElement) {
-          event.preventDefault();
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+        const href = event.target.getAttribute('href');
+        
+        // Solo aplicar smooth scroll a enlaces internos (que empiezan con #)
+        if (href && href.startsWith('#')) {
+          const targetElement = document.querySelector(href);
+    
+          if (targetElement) {
+            event.preventDefault();
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
         }
       };
-  
-      const links = document.querySelectorAll('.navbar-links a, .footer a');
+    
+      // Seleccionar solo los enlaces internos
+      const links = document.querySelectorAll('.navbar-links a[href^="#"], .footer a[href^="#"]');
       links.forEach(link => {
         link.addEventListener('click', handleSmoothScroll);
       });
-  
+    
       return () => {
         links.forEach(link => {
           link.removeEventListener('click', handleSmoothScroll);
         });
       };
     }, []);
-  
+
     return (
       <div>
         <Navbar />
@@ -43,6 +49,6 @@ export function LandingPage() {
         <Footer />
       </div>
     );
-  }
+}
 
 export default LandingPage;
