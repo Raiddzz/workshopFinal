@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext'; // Aca importo el auth context
 import '../styles/Auth.css';
 
 function Register() {
@@ -7,6 +8,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAuth(); // llamo a la funcion de authContext
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -15,22 +17,29 @@ function Register() {
 
     const users = JSON.parse(localStorage.getItem('users') || '[]');
 
+    // Un check de si el mail está registrado
     if (users.find(user => user.email === email)) {
       setError('El email ya está registrado');
       return;
     }
 
-    const newUser = {
+    // creo un nuevo usuario
+    const newUser  = {
       id: Date.now(),
       name,
       email,
       password
     };
 
-    users.push(newUser);
+    // Guardo el usuario en localstorage pasando los datos que obtengo de newUser con un push
+    users.push(newUser );
     localStorage.setItem('users', JSON.stringify(users));
 
-    navigate('/login');
+    // Inicio sesion automaticamente
+    login(newUser );
+    
+    // Redirijo a la pag de inicio
+    navigate('/');
   };
 
   return (

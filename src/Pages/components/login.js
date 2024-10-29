@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import '../styles/Auth.css'
+import '../styles/Auth.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -14,10 +14,8 @@ function Login() {
     e.preventDefault();
     setError('');
 
-    // Obtener usuarios registrados
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     
-    // Buscar usuario
     const user = users.find(u => u.email === email && u.password === password);
 
     if (user) {

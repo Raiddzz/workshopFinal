@@ -1,6 +1,5 @@
 import React from 'react';
 import ProductPage from './components/ProductList'; 
-import { Provider } from 'react-redux';
 
 function ProductsPage() {
   return (

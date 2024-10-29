@@ -218,7 +218,6 @@
   gap: 0.5rem;
 }
 
-/* Responsive Design */
 @media (max-width: 480px) {
   .auth-card {
     padding: 2rem;

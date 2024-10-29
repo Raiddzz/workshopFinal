@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { addToFavorites, removeFromFavorites } from '../redux/favoritesSlice';
-import { useAuth } from '../../context/AuthContext'; // Mantener para verificar autenticación
+import Navbar from './NavBar';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -45,33 +44,57 @@ const ProductsPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>Product List</h1>
-      <div className="product-list">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <div key={product.id} className="product-item">
-              <h2>{product.title}</h2>
-              {product.thumbnail ? (
-                <img
-                  src={product.thumbnail}
-                  alt={product.title}
-                  style={{ width: "150px", height: "150px" }}
-                />
-              ) : (
-                <p>No image available</p>
-              )}
-              <p>Price: ${product.price}</p>
-              <button 
-                onClick={() => handleFavoriteClick(product)}
-                className={`favorite-button ${isInFavorites(product.id) ? 'active' : ''}`}
-              >
-                {isInFavorites(product.id) ? '❤️ Quitar de favoritos' : '🤍 Agregar a favoritos'}
-              </button>
-            </div>
-          ))
+    <div className="products-page">
+      <Navbar />
+      <div className="products-content">
+        <div className="products-header">
+          <h1>Nuestros Productos</h1>
+          <p>Descubre nuestra selección de productos exclusivos</p>
+        </div>
+        
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Cargando productos...</p>
+          </div>
         ) : (
-          <p>No products available</p>
+          <div className="product-list">
+            {products.length > 0 ? (
+              products.map((product) => (
+                <div key={product.id} className="product-item">
+                  <h2>{product.title}</h2>
+                  {product.thumbnail ? (
+                    <img
+                      src={product.thumbnail}
+                      alt={product.title}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                      }}
+                    />
+                  ) : (
+                    <img alt="No image available"/>
+                  )}
+                  <p className="product-price">${product.price}</p>
+                  <button 
+                    onClick={() => handleFavoriteClick(product)}
+                    className={`favorite-button ${isInFavorites(product.id) ? 'active' : ''}`}
+                  >
+                    {isInFavorites(product.id) ? '❤️ Quitar de favoritos' : '🤍 Agregar a favoritos'}
+                  </button>
+                </div>
+              ))
+            ) : (
+              <div className="no-products">
+                <p>No hay productos disponibles en este momento.</p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>

@@ -3,9 +3,8 @@ import Navbar from "./components/NavBar";
 import Features from "./components/Features";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
-import ProductList from "./components/ProductList";
 import './styles/LandingPage.css';
-import './styles/Products.css'
+
 
 export function LandingPage() {
     useEffect(() => {
@@ -44,7 +43,6 @@ export function LandingPage() {
         <Navbar />
         <Hero />
         <Features />
-        <ProductList />
         <Footer />
       </div>
     );

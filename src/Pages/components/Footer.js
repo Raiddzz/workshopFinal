@@ -21,9 +21,6 @@ function Footer() {
           <h3 className="footer-title">Enlaces Rápidos</h3>
           <ul className="footer-links">
             <li><a href="#features">Características</a></li>
-            <li><a href="#products">Productos</a></li>
-            <li><a href="#about">Sobre Nosotros</a></li>
-            <li><a href="#contact">Contacto</a></li>
           </ul>
         </div>
 
