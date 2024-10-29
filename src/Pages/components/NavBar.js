@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // Asegúrate de que la ruta sea correcta
+import { useAuth } from '../../context/AuthContext'; 
 
 function Navbar() {
   const { user, logout } = useAuth();
