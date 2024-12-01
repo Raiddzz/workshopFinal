@@ -11,7 +11,6 @@ export function LandingPage() {
       const handleSmoothScroll = (event) => {
         const href = event.target.getAttribute('href');
         
-        // Aca aplico el smooth scroll con enlaces que empiecen con "#"
         if (href && href.startsWith('#')) {
           const targetElement = document.querySelector(href);
     

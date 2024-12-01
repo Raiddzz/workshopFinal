@@ -10,6 +10,7 @@ import './App.css';
 import './Pages/styles/Auth.css';
 import { Provider } from 'react-redux';
 import FavoritesPage from './Pages/FavoritesPage';
+import { AboutUs } from './Pages/aboutUs';
 
 {/* el router lo dividi por rutas protegidas y rutas públicas */}
 
@@ -31,6 +32,7 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/favorites" element={<FavoritesPage/>}/>
+          <Route path ="/about" element ={<AboutUs/>} />
         </Routes>
       </Router>
     </AuthProvider>
