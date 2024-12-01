@@ -15,7 +15,7 @@ function Navbar() {
     <nav className="navbar">
       <Link to="/" className="navbar-logo">E-Commerce</Link>
       <ul className="navbar-links">
-        <li><a href="#features">Features</a></li>
+        <li><a href="/#features">Features</a></li>
         <li><Link to="/products">Productos</Link></li>
         <li><Link to="/favorites">Favoritos</Link></li>
         <li><a href="/about">Contacto</a></li>
